@@ -1,14 +1,19 @@
+from time import sleep
 import serial
 import connectSerial
 import altitude
-
-print(connectSerial.serial_ports())
 
 portName = connectSerial.choosePort()
 
 serialPort = serial.Serial(port = portName, baudrate=115200, bytesize=8, timeout=2, stopbits=serial.STOPBITS_ONE)
 
 serialString = ""                           # Used to hold data coming over UART
+
+while(1):
+    dataValue = "0 0.000 0.000 42"
+    dataArray = dataValue.split()
+    altitude.handleAltitude(dataArray)
+    sleep(1)
 
 while(1):
 
